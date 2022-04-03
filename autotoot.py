@@ -22,6 +22,7 @@ TODO:
        - [ ] Info logging
        - [ ] Error logging
     - [ ] Add twitter bot
+    - [ ] Docker image?do
     - [ ] Make this an installable (pip?) package
 '''
 
@@ -36,7 +37,7 @@ class bot():
     # uploads media to mastodon, returns the mastodon ID
     # specify mimetype of video files as "video/mp4" to avoid error
     def upload_media(self, filename, mimetype=None):
-        if self.debug: print(f"Uploading media {filename}")
+        if self.debug: logging.info(f"Uploading media {filename}")
         return self.masto.media_post(filename, mime_type=mimetype)
     
     # uploads all given media
@@ -47,7 +48,7 @@ class bot():
         return ids
     
     def toot(self, text, media=None):
-        if self.debug: print(f"Posting:\n  Text: {text}\n  Media: {', '.join(media) if media != None else 'None'}")
+        if self.debug: logging.info(f"Posting:\n  Text: {text}\n  Media: {', '.join(media) if media != None else 'None'}")
         self.masto.status_post(text, media_ids=media)
 
 # Reddit (maybe more in future) scaper to get postsn future) scaper to get posts
@@ -96,7 +97,7 @@ class scraper():
     # expected structure: [["temp/a/1", "temp/a/2"], [], [], ["temp/e/1"]]
     def remove_folders(self, folders_list):
         for folder in folders_list:
-            if self.debug: print(f"Clearing folder {folder}")
+            if self.debug: logging.info(f"Clearing folder {folder}")
             for file in folder:
                 os.remove(file)
             if len(folder) > 0:
@@ -106,7 +107,7 @@ class scraper():
     # helper method to download media
     def download_media(self, url, filename):
         # get file first
-        if self.debug: print(f"Downloading {url} info {filename}")
+        if self.debug: logging.info(f"Downloading {url} info {filename}")
         resp = requests.get(url)
         if resp.ok:
             # make sure directory structure exists
@@ -129,7 +130,7 @@ class scraper():
     def create_savefile(self, places, limit):
         # write to seent list memory and return posts
         for place in places:
-            if self.debug: print(f"Creating savefile save/{self.service}/{place}")
+            if self.debug: logging.info(f"Creating savefile save/{self.service}/{place}")
             new_seent = [k for k in self.seent[place] if k != ""]
             if len(new_seent) > limit: new_seent = new_seent[:limit]
             open(f"save/{self.service}/{place}", "w").write("\n".join(new_seent))
@@ -148,7 +149,7 @@ class scraper():
         post_list = []
         for p in self.login.subreddit(sub_name).new(limit=limit):
             if p.id not in self.seent[sub_name]:
-                if self.debug: print(f"Scraping post {p.id}")
+                if self.debug: logging.info(f"Scraping post {p.id}")
                 post_list.append(p)
                 self.seent[sub_name] = [p.id] + self.seent[sub_name]
         return post_list
@@ -189,7 +190,7 @@ class scraper():
         for url in reddit_urls:
             i += 1
             name = f"temp/{post.id}/{i}"
-            if self.debug: print(f"Downloading {url} ({i}/{len(reddit_urls)})")
+            if self.debug: logging.info(f"Downloading {url} ({i}/{len(reddit_urls)})")
             self.download_media(url, name)
             local_urls.append(name)
         
@@ -208,10 +209,10 @@ class scraper():
     ### WRAPPER METHODS; these should be the ones called directly
     # gets posts from a given service's place (ie, a subreddit or twitter feed)
     def scrape(self, place, limit=10):
-        if self.debug: print(f"Scraping {self.service}: {place}... ")
+        if self.debug: logging.info(f"Scraping {self.service}: {place}... ")
         if self.service == "reddit":
             result = self.reddit_scrape(place, limit)
-        if self.debug: print(f"Done scraping {self.service}: {place}.")
+        if self.debug: logging.info(f"Done scraping {self.service}: {place}.")
         return result
     # gets posts from a gives service's places (ie, multiple subreddits or feeds)
     def scrape_all(self, places=None, limit=10):
@@ -222,9 +223,9 @@ class scraper():
     # downloads a given post's media and return the locations
     def download(self, post):
         if self.service == "reddit":
-            if self.debug: print(f"Downloading {post.id}... ")
+            if self.debug: logging.info(f"Downloading {post.id}... ")
             result = self.reddit_download(post)
-        if self.debug: print(f"Done downloading {post.id}.")
+        if self.debug: logging.info(f"Done downloading {post.id}.")
         return result
     # downloads a list of post's media and returns a list of the locations
     def download_all(self, posts):
@@ -235,9 +236,9 @@ class scraper():
     # creates the savefile for a list of posts.
     def remember(self, places=None, limit=10):
         if places == None: places = self.places
-        if self.debug: print(f"Remembering {', '.join(places)}...")
+        if self.debug: logging.info(f"Remembering {', '.join(places)}...")
         self.create_savefile(places, limit)
-        if self.debug: print(f"Remembered {', '.join(places)}.")
+        if self.debug: logging.info(f"Remembered {', '.join(places)}.")
 
     ### TOOTER METHODS (reddit only for now)
     # builds a toot for convenience
@@ -257,7 +258,7 @@ class scraper():
     
     ### RUNNING METHODS
     def run(self, masto, places=None, limit=10):
-        if self.debug: print(f"Running {self.service}.")
+        if self.debug: logging.info(f"Running {self.service}.")
         if places == None: places = self.places
         subs = self.scrape_all(places=places, limit=limit)
         for sub in subs:
