@@ -8,24 +8,23 @@ is very much a work in progress.
     - praw
 you can run `pip3 install Mastodon.py praw` to install both of these.
 
-TODO:
-    done:
-        - [x] Download and posting of video files
-        - [x] Make sure text-only reddit posts work
-        - [x] Eternal looping, run script every 5 mins or something
-        - [x] Different masto post structures for different post types (videos need links)
-        - [x] Import bot/scraper settings from file for automation
-        - [x] Random post if low activity
-        - [x] Separate methods methods to make code cleaner
-        - [x] Keep track of what has been scraped and tooted to not duplicate posts
+## Status:
+**Done**
+- [x] Download and posting of video files
+- [x] Make sure text-only reddit posts work
+- [x] Eternal looping, run script every 5 mins or something
+- [x] Different masto post structures for different post types (videos need links)
+- [x] Import bot/scraper settings from file for automation
+- [x] Random post if low activity
+- [x] Separate methods methods to make code cleaner
+- [x] Keep track of what has been scraped and tooted to not duplicate posts
 
-      
-    likely:
-        - [ ] Debugging logging
-        - [ ] Move all vars into config
-        - [ ] Docker image
+**Likely**
+- [ ] Debugging logging
+- [ ] Move all vars into config
+- [ ] Docker image
 
-    unlikely:
-        - [ ] Updating from @mention toot
-        - [ ] Make this an installable (pip?) package
-        - [ ] Add twitter bot
+**Unlikely**
+- [ ] Updating from @mention toot
+- [ ] Make this an installable (pip?) package
+- [ ] Add twitter bot
