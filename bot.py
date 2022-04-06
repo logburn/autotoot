@@ -22,4 +22,4 @@ class bot():
     
     def toot(self, text, media=None):
         logging.info(f"Posting:\n  Text: {text}")
-        print("self.masto.status_post(text, media_ids=media)")
+        self.masto.status_post(text, media_ids=media)

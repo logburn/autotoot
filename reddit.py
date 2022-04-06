@@ -78,8 +78,6 @@ class reddit_scraper:
         elif post_type == "gallery":
             urls = make_gallery_urls()
         
-        urls = [] # nueter download
-        
         # download all media
         local_urls = []
         i = 0
