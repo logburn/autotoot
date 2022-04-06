@@ -4,8 +4,8 @@ that you can plug your own things in. For example, one could write their own scr
 is very much a work in progress.
 
 ### Pip requirements:
-    - Mastodon.py
-    - praw
+ - Mastodon.py
+ - praw
 you can run `pip3 install Mastodon.py praw` to install both of these.
 
 ## Status:
