@@ -43,7 +43,6 @@ class helper():
     
     # reddit helper method to return the post type
     def get_post_type(post):
-        print(post.url)
         if post.url[8] == 'i': return "image"
         if post.url[8] == 'v': return "video"
         if post.url[23:30] == "gallery": return "gallery"
