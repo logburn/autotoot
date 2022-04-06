@@ -6,6 +6,7 @@ is very much a work in progress.
 ### Pip requirements:
  - Mastodon.py
  - praw
+
 you can run `pip3 install Mastodon.py praw` to install both of these.
 
 ## Status:
