@@ -3,8 +3,7 @@ import logging
 
 # Mastodon bot to post things
 class bot():
-    def __init__(self, config, debug=False):
-        self.debug = debug
+    def __init__(self, config, neuter=False):
         self.masto = Mastodon(access_token=config["mastodon"]["access_token"], api_base_url=config["mastodon"]["host"])
     
     # uploads media to mastodon, returns the mastodon ID
@@ -17,9 +16,15 @@ class bot():
     def upload_all_media(self, filenames):
         ids = []
         for fn in filenames:
-            ids.append(self.upload_media(fn))
+            if not self.neuter:
+                ids.append(self.upload_media(fn))
+            else:
+                print(f"Would have uploaded {fn}")
         return ids
     
     def toot(self, text, media=None):
         logging.info(f"Posting:\n  Text: {text}")
-        self.masto.status_post(text, media_ids=media)
+        if not self.neuter:
+            self.masto.status_post(text, media_ids=media)
+        else:
+            print(f"Would have tooted: {text}")

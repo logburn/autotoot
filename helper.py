@@ -13,7 +13,6 @@ class helper():
         # service to pass itself in every time
         service = service.service
         low_activity_random = service.low_activity_random
-        debug = service.debug
         places = service.places
         seent = service.seent
 

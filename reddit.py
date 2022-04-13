@@ -17,19 +17,17 @@ class reddit_scraper:
         savefile = json.load(savefile)
         try: self.seent = savefile["reddit"]
         except: self.seent = {}
-                
-
-    ### REDDIT METHODS
+    
     # gets posts from a given subreddit
     def scrape(self, sub, limit):
         # make sure self.seent has the sub, add if not
         if sub not in self.seent: self.seent[sub] = time.time()
-        # get posts that aren't in seent list
+        # get posts that aren't seent
         post_list = []
         posts = self.login.subreddit(sub).new(limit=limit)
         posts = helper.reddit_listify(posts)
         for p in posts[::-1]:
-            if helper.ts_older(p.created, self.seent[sub]):
+            if helper.ts_older(self.seent[sub], p.created):
                 break
             logging.info(f"Scraping post {p.id}")
             post_list.append(p)

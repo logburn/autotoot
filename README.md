@@ -20,8 +20,7 @@ you can run `pip3 install Mastodon.py praw` to install both of these.
 - [x] Separate methods methods to make code cleaner
 
 **Likely**
-- [ ] Keep track of what has been scraped and tooted to not duplicate posts
-    - This is a pain in the butt for some reason
+- [?] Keep track of what has been scraped and tooted to not duplicate posts
 - [ ] Debugging logging
 - [ ] Move all vars into config
 - [ ] Docker image
