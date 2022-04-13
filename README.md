@@ -20,12 +20,12 @@ you can run `pip3 install Mastodon.py praw` to install both of these.
 - [x] Separate methods methods to make code cleaner
 
 **Likely**
-- [?] Keep track of what has been scraped and tooted to not duplicate posts
+- [ ] Keep track of what has been scraped and tooted to not duplicate posts
 - [ ] Debugging logging
 - [ ] Move all vars into config
 - [ ] Docker image
 
 **Unlikely**
-- [ ] Updating from @mention toot
+- [ ] Updating subscriptions from @mention toot
 - [ ] Make this an installable (pip?) package
 - [ ] Add twitter bot
