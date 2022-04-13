@@ -35,7 +35,7 @@ class scraper:
     # downloads a given post's media and return the locations
     def download(self, post):
         logging.info(f"Downloading {post.id}... ")
-        result = [] #self.login.download(post) neuter
+        self.login.download(post)
         logging.info(f"Done downloading {post.id}.")
         return result
 
