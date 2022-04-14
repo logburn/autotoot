@@ -18,8 +18,8 @@ def main():
         # get config
         config = json.load(open('config.json', 'r'))
         # make bots
-        masto = bot(config)
-        reddit = scraper("reddit", config, low_activity_random=True)
+        masto = bot(config, neuter=True)
+        reddit = scraper("reddit", config, neuter=True)
         # run bots
         run(masto, reddit)
         # buffer time bc posts only happen so often so why check

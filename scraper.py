@@ -4,7 +4,7 @@ import json
 from reddit import reddit_scraper as reddit
 
 class scraper:
-    def __init__(self, service, config, low_activity_random=False):
+    def __init__(self, service, config, neuter=False):
         # error checking
         scrapers = ["reddit"]
         if service.lower() not in scrapers:
@@ -16,8 +16,8 @@ class scraper:
             f = open("savefile.json", "w+")
             f.write("{}")
         # set object variables
-        self.low_activity_random = low_activity_random
         self.service = service
+        self.neuter = neuter
         # login to service
         if service == "reddit": self.login = reddit(config)
 
@@ -35,7 +35,8 @@ class scraper:
     # downloads a given post's media and return the locations
     def download(self, post):
         logging.info(f"Downloading {post.id}... ")
-        self.login.download(post)
+        if not self.neuter: self.login.download(post)
+        else: print(f"Neuter: would have downloaded {post} content")
         logging.info(f"Done downloading {post.id}.")
         return result
 

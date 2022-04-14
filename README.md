@@ -21,6 +21,7 @@ you can run `pip3 install Mastodon.py praw` to install both of these.
 
 **Likely**
 - [ ] Keep track of what has been scraped and tooted to not duplicate posts
+- [ ] Actually add neuter settings for development
 - [ ] Debugging logging
 - [ ] Move all vars into config
 - [ ] Docker image
