@@ -55,7 +55,7 @@ class helper():
         # timedelta of timestamp
         stamp_delta = datetime.fromtimestamp(ts1)
         stamp_delta = datetime.now() - stamp_delta
-        print("  ts_older: {stamp_delta} > {hours_delta}")
+        print(f"  ts_older: {stamp_delta} > {hours_delta}")
         return stamp_delta > hours_delta
 
     # returns True if place hasn't had a post in the past 12 hours according
