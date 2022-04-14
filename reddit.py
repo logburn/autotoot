@@ -30,7 +30,7 @@ class reddit_scraper:
             if helper.ts_older(self.seent[sub], p.created):
                 break
             else:
-                print(f"helper.ts_older({self.seent[sub]}, {p.created})")
+                print(f"helper.ts_older({self.seent[sub]}, {p.created}) :: {self.seent[sub] - p.created}")
             logging.info(f"Scraping post {p.id}")
             post_list.append(p)
             self.seent[sub] = p.created
