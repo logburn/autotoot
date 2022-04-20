@@ -2,6 +2,7 @@ import os
 import logging
 import json
 from reddit import reddit_scraper as reddit
+from time import sleep
 
 class scraper:
     def __init__(self, service, config, neuter=False):
@@ -15,6 +16,7 @@ class scraper:
         if not os.path.exists("savefile.json"):
             f = open("savefile.json", "w+")
             f.write("{}")
+            f.close()
         # set object variables
         self.service = service
         self.neuter = neuter
@@ -66,7 +68,7 @@ class scraper:
     ### TOOTER METHODS
     # takes a toot and returns a dict of the text and media IDs
     def build_toot(self, masto, post):
-        return self.login.build_toot(masto, post)
+        return self.login.build_toot(masto, post, neuter=self.neuter)
 
     # toots all posts in list
     def toot_posts(self, masto, posts):

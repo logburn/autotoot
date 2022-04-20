@@ -27,13 +27,11 @@ class reddit_scraper:
         posts = self.login.subreddit(sub).new(limit=limit)
         posts = helper.reddit_listify(posts)
         for p in posts[::-1]:
-            if helper.ts_older(self.seent[sub], p.created):
+            if helper.ts_older(p.created, self.seent[sub]):
                 break
-            else:
-                print(f"helper.ts_older({self.seent[sub]}, {p.created}) :: {self.seent[sub] - p.created}")
             logging.info(f"Scraping post {p.id}")
             post_list.append(p)
-            self.seent[sub] = p.created
+        self.seent[sub] = posts[0].created
         return post_list
     
     # scrapes all subreddits
@@ -102,7 +100,6 @@ class reddit_scraper:
     
     # creates the savefile for a list of posts.
     def remember(self):
-        print(f"{self.seent}")
         savefile = json.load(open("savefile.json", "r"))
         savefile["reddit"] = self.seent
         savefile = json.dumps(savefile)
@@ -111,11 +108,12 @@ class reddit_scraper:
 
     ### TOOTER METHODS
     # takes a toot and returns a dict of the text and media IDs
-    def build_toot(self, masto, post):
+    def build_toot(self, masto, post, neuter=False):
         toot = {}
         toot["text"] = post.title
         if helper.get_post_type(post) == "video": toot["text"] += f"\n\n{post.url}"
-        local_media = self.download(post)
+        if not neuter: local_media = self.download(post)
+        else: local_media = []
         toot["media"] = masto.upload_all_media(local_media)
         return toot
 

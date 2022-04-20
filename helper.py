@@ -4,8 +4,6 @@ import logging
 from datetime import datetime
 
 ### HELPER METHODS
-# helper method to clean out folder (delete all contents)
-# expected structure: [["temp/a/1", "temp/a/2"], [], [], ["temp/e/1"]]
 class helper():
     def __init__(service):
         # copy the service's variables to make them local
@@ -48,15 +46,9 @@ class helper():
         return "unknown"
     
     # returns True if the ts1 is older than ts2
-    # tsx should be a timestamp value
+    # ts_ should be a timestamp value
     def ts_older(ts1, ts2):
-        # timedelta of `hours`
-        hours_delta = datetime.fromtimestamp(ts2) - datetime.fromtimestamp(0)
-        # timedelta of timestamp
-        stamp_delta = datetime.fromtimestamp(ts1)
-        stamp_delta = datetime.now() - stamp_delta
-        print(f"  ts_older: {stamp_delta} > {hours_delta}")
-        return stamp_delta > hours_delta
+        return datetime.fromtimestamp(ts1) < datetime.fromtimestamp(ts2)
 
     # returns True if place hasn't had a post in the past 12 hours according
     # to the savefile
