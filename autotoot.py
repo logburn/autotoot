@@ -5,13 +5,22 @@ import time
 
 def run(masto, service):
     # post any new posts, up to limit
+    print("a")
     subs = service.scrape_all()
+    print("b")
+    i = 0
     for sub in subs:
+        i += 1
+        print(f"c{i}")
         service.toot_posts(masto, subs[sub])
+        print("d")
+    print("e")
     service.remember()
+    print("f")
 
     # post random if it has been a while
     service.keep_lively()
+    print("g")
 
 def main():
     # get config
@@ -26,7 +35,7 @@ def main():
             neuter = c["neuter"].lower() == "true"
         if "wait" in c:
             wait = int(c["wait"])
-    print(neuter, wait)
+
     # make bots
     masto = bot(config, neuter=neuter)
     reddit = scraper("reddit", config, neuter=neuter)
