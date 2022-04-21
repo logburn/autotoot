@@ -38,6 +38,7 @@ class reddit_scraper:
     def scrape_all(self, limit):
         subposts = {}
         for place in self.places:
+            print(place)
             subposts[place] = self.scrape(place, limit)
         return subposts
     

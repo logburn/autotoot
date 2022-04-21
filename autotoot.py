@@ -14,16 +14,29 @@ def run(masto, service):
     service.keep_lively()
 
 def main():
+    # get config
+    config = json.load(open('config.json', 'r'))
+
+    # get settings if applicable
+    neuter = False
+    wait = 5
+    try:
+        c = config["autotoot"]
+        if "neuter" in c:
+            neuter = c["neuter"].lower() == "true"
+        if "wait" in c:
+            wait = int(c["wait"])
+    except:
+        pass
+    print(neuter, wait)
+    # make bots
+    masto = bot(config, neuter=neuter)
+    reddit = scraper("reddit", config, neuter=neuter)
+
+    # run bots forever
     while True:
-        # get config
-        config = json.load(open('config.json', 'r'))
-        # make bots
-        masto = bot(config)
-        reddit = scraper("reddit", config)
-        # run bots
         run(masto, reddit)
-        # buffer time bc posts only happen so often so why check
-        time.sleep(5)
+        time.sleep(wait)
     
 if __name__ == "__main__":
     main()
