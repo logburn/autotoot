@@ -25,9 +25,9 @@ class scraper:
 
     ### WRAPPER METHODS
     def scrape(self, place, limit=10):
-        logging.info(f"Scraping {self.service}: {place}... ")
+        logging.warning(f"Scraping {self.service}: {place}... ")
         result = self.login.scrape(place, limit)
-        logging.info(f"Done scraping {self.service}: {place}.")
+        logging.warning(f"Done scraping {self.service}: {place}.")
         return result
 
     # gets posts from a gives service's places (ie, multiple subreddits or feeds)
@@ -36,10 +36,10 @@ class scraper:
 
     # downloads a given post's media and return the locations
     def download(self, post):
-        logging.info(f"Downloading {post.id}... ")
+        logging.warning(f"Downloading {post.id}... ")
         if not self.neuter: self.login.download(post)
         else: print(f"Neuter: would have downloaded {post} content")
-        logging.info(f"Done downloading {post.id}.")
+        logging.warning(f"Done downloading {post.id}.")
         return result
 
     # downloads a list of post's media and returns a list of the locations
@@ -52,9 +52,9 @@ class scraper:
 
     # creates the savefile for a list of posts.
     def remember(self):
-        logging.info(f"Remembering {self.service}...")
+        logging.warning(f"Remembering {self.service}...")
         self.login.remember()
-        logging.info(f"Remembered {self.service}.")
+        logging.warning(f"Remembered {self.service}.")
     
     # posts for each place if it has been a while
     def keep_lively(self):
@@ -62,7 +62,7 @@ class scraper:
 
     # posts a random post from the given place
     def random_post(self, place):
-        logging.info(f"Getting random post for {place}")
+        logging.warning(f"Getting random post for {place}")
         return self.login.random_post(place)
 
     ### TOOTER METHODS

@@ -10,7 +10,7 @@ class bot():
     # uploads media to mastodon, returns the mastodon ID
     # specify mimetype of video files as "video/mp4" to avoid error
     def upload_media(self, filename, mimetype=None):
-        logging.info(f"Uploading media {filename}")
+        logging.warning(f"Uploading media {filename}")
         if not self.neuter:
             returnval = self.masto.media_post(filename, mime_type=mimetype)
         else:
@@ -26,7 +26,7 @@ class bot():
         return ids
     
     def toot(self, text, media=None):
-        logging.info(f"Posting:\n  Text: {text}")
+        logging.warning(f"Posting:\n  Text: {text}")
         if not self.neuter:
             self.masto.status_post(text, media_ids=media)
         else:
