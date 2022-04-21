@@ -18,12 +18,12 @@ you can run `pip3 install Mastodon.py praw` to install both of these.
 - [x] Import bot/scraper settings from file for automation
 - [x] Random post if low activity
 - [x] Separate methods methods to make code cleaner
+- [x] Actually add neuter settings for development
+- [x] Debugging logging
+- [x] Move all vars into config
 
 **Likely**
 - [ ] Keep track of what has been scraped and tooted to not duplicate posts
-- [ ] Actually add neuter settings for development
-- [ ] Debugging logging
-- [ ] Move all vars into config
 - [ ] Docker image
 
 **Unlikely**
