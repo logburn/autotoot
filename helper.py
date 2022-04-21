@@ -16,7 +16,7 @@ class helper():
 
     def remove_folders(folders_list):
         for folder in folders_list:
-            logging.info(f"Clearing folder {folder}")
+            logging.warning(f"Clearing folder {folder}")
             for file in folder:
                 os.remove(file)
             if len(folder) > 0:
@@ -26,7 +26,7 @@ class helper():
     # helper method to download media
     def download_media(url, filename):
         # get file first
-        logging.info(f"Downloading {url} info {filename}")
+        logging.warning(f"Downloading {url} warning {filename}")
         resp = requests.get(url)
         if resp.ok:
             # make sure directory structure exists

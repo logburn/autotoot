@@ -29,7 +29,7 @@ class reddit_scraper:
         for p in posts[::-1]:
             if helper.ts_older(p.created, self.seent[sub]):
                 break
-            logging.info(f"Scraping post {p.id}")
+            logging.warning(f"Scraping post {p.id}")
             post_list.append(p)
         self.seent[sub] = posts[0].created
         return post_list
@@ -82,7 +82,7 @@ class reddit_scraper:
         for url in urls:
             i += 1
             name = f"temp/{post.id}/{i}"
-            logging.info(f"Downloading {url} ({i}/{len(urls)})")
+            logging.warning(f"Downloading {url} ({i}/{len(urls)})")
             helper.download_media(url, name)
             local_urls.append(name)
         
