@@ -20,14 +20,12 @@ def main():
     # get settings if applicable
     neuter = False
     wait = 5
-    try:
+    if "autotoot" in config:
         c = config["autotoot"]
         if "neuter" in c:
             neuter = c["neuter"].lower() == "true"
         if "wait" in c:
             wait = int(c["wait"])
-    except:
-        pass
     print(neuter, wait)
     # make bots
     masto = bot(config, neuter=neuter)
